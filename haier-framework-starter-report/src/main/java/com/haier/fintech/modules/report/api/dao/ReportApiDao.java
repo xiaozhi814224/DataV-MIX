@@ -63,8 +63,8 @@ public interface ReportApiDao {
 	@Select("${sql}")
 	List<HashMap<String, Object>> getData(@Param("sql") String sql);
 	//查询地图数据(省份经纬度)
-	@Select("SELECT * FROM tb_area")
-	public List<HashMap<String, Object>> getMapData();
+	@Select("${sql}")
+	public List<HashMap<String, Object>> getMapData(@Param("sql")String sql);
 	@Select("SELECT	* FROM " + 
 			"			tb_chart_config c " + 
 			"		LEFT JOIN tb_data_set_config s ON c.data_set_id = s.id " + 
