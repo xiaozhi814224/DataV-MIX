@@ -9,7 +9,6 @@ public class MongoPageUtils<T> {
     //总页数
     private Long totalPage;
     
-    
     //每页记录数
   	private int pageSize;
   	
