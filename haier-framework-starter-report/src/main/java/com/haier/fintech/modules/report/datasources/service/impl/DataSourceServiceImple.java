@@ -74,7 +74,7 @@ public class DataSourceServiceImple extends ServiceImpl<DataSourceDao, DataSourc
 			
 		}else {//关系型数据库
 			Map<String,String> map = loadDataSource(dataSourceEntity);
-			dynamicDataSource.addDataSource("idrive" + dataSourceEntity.getId(), map);
+			dynamicDataSource.addDataSource("datav" + dataSourceEntity.getId(), map);
 		}
 		
 	}
@@ -97,7 +97,7 @@ public class DataSourceServiceImple extends ServiceImpl<DataSourceDao, DataSourc
 		dataSourceEntity.setUpdateUser(userId);
 		baseMapper.updateById(dataSourceEntity);
 		Map<String,String> map = loadDataSource(dataSourceEntity);
-		//dynamicDataSource.modifyDataSource("idrive" + dataSourceEntity.getId(), map);
+		//DynamicDataSource.DbContextHolder.setDataSource("datav" + dataSourceEntity.getId());
 	}
 	//获取数据源
 	public Map<String,String> loadDataSource(DataSourceEntity dataSourceEntity) {
