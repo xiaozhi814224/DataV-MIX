@@ -91,11 +91,12 @@ public class ReportBMapAdaptersImple implements ReportApiService{
 			Object obj = oracleData.get("RESULTS");//触点数
 			String province = (String)oracleData.get("PROVINCE");//省
 			String city = (String)oracleData.get("CITY");//市
-			String distinct = (String)oracleData.get("DISTRICT");//区
+			String distinct = (String)oracleData.get("DISTRICT");//区(小区)
 			String lon = (String) oracleData.get("lon");//经度
 			String lan = (String) oracleData.get("lat");//维度
+			String trueDistrict = (String)oracleData.get("TRUEDISTRICT");//区(小区)
 			if(StringUtils.isNotBlank(province) && StringUtils.isNotBlank(city)  && StringUtils.isNotBlank(distinct)) {//查询市下区的经纬度
-				flag = handelDistinctData(map,province,city,distinct,lon,lan,obj,saveDataList,flag);
+				flag = handelDistinctData(map,province,city,trueDistrict,distinct,lon,lan,obj,saveDataList,flag);
 			}else {
 				flag = handelProvinceOrCityData(map,province,city,distinct,listMySqlData,obj,flag);//处理省 市经纬度
 			}
@@ -133,7 +134,7 @@ public class ReportBMapAdaptersImple implements ReportApiService{
 	 * @param flag 数据是否有效     false无经纬度，舍弃
 	 * @return
 	 */
-	private Boolean handelDistinctData(Map<String, Object> map,String province,String city,String distinct,String lon,String lan,Object obj,List<Map<String,Object>> saveDataList,Boolean flag){
+	private Boolean handelDistinctData(Map<String, Object> map,String province,String city,String trueDistinct,String distinct,String lon,String lan,Object obj,List<Map<String,Object>> saveDataList,Boolean flag){
 		map.put("areaName", distinct);//区(小区的名字)
 		List list = new ArrayList();
 		if(StringUtils.isNotBlank(lon) && StringUtils.isNotBlank(lan) ) {//市下区(小区已有经纬度)
@@ -143,7 +144,7 @@ public class ReportBMapAdaptersImple implements ReportApiService{
 			list.add(obj);
 			map.put("value", list);
 		}else {
-			Map<String,Object> distinctMap = BaiduMapUtils.getCoordinate(distinct);
+			Map<String,Object> distinctMap = BaiduMapUtils.getCoordinate(province+city+trueDistinct+distinct);
 			Object lng = distinctMap.get("lng");//经度
 			Object lat = distinctMap.get("lat");//维度
 			if(lng != null && lat != null) {
@@ -156,6 +157,7 @@ public class ReportBMapAdaptersImple implements ReportApiService{
 				Map<String,Object> saveData = new HashMap<String,Object>();
 				saveData.put("province", province);
 				saveData.put("city", "city");
+				saveData.put("trueDistinct",trueDistinct);
 				saveData.put("distinct", distinct);
 				saveData.put("lon",lng);
 				saveData.put("lat",lat);
