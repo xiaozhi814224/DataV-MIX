@@ -10,14 +10,18 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
+import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSONObject;
+import com.haier.fintech.common.annotation.SysLog;
+@Component
 public class BaiduMapUtils {
     private static String AK = "gsdG0zjFyZn49fyArYOzPbZi"; // 百度地图密钥
     private static String BASEURL="http://api.map.baidu.com/geocoder/v2/";
 
     // 调用百度地图API根据地址，获取坐标
-    public static Map<String,Object> getCoordinate(String address) {
+    public Map<String,Object> getCoordinate(String province,String city,String district,String addr) {
+    	String address =province+city+district+addr;
     	Map<String,Object> map =new HashMap<String,Object>();
         if (address != null && !"".equals(address)) {
             address = address.replaceAll("\\s*", "").replace("#", "栋");
