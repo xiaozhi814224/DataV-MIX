@@ -125,7 +125,7 @@ public class ReportBMapAdaptersImple implements ReportApiService{
 	 * @return
 	 */
 	private Boolean handelDistinctData(Map<String, Object> map,String province,String city,String distinct,String addr,String lng,String lat,Object obj,Boolean flag){
-		map.put("areaName", distinct+addr);//区(小区的名字)
+		map.put("areaName",addr);//区(小区的名字)
 		List list = new ArrayList();
 		if(StringUtils.isNotBlank(lng) && StringUtils.isNotBlank(lat) ) {//市下区(小区已有经纬度)
 			flag = true;
