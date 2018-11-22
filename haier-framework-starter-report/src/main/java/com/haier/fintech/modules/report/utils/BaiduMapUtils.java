@@ -13,10 +13,10 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.haier.fintech.common.annotation.SysLog;
 @Component
 public class BaiduMapUtils {
-    private static String AK = "gsdG0zjFyZn49fyArYOzPbZi"; // 百度地图密钥
+    //private static String AK = "gsdG0zjFyZn49fyArYOzPbZi"; // 百度地图密钥
+	private static String AK = "OVEsEe5dwUd5oTXBoZX7aQPlPLU8YnRq";
     private static String BASEURL="http://api.map.baidu.com/geocoder/v2/";
 
     // 调用百度地图API根据地址，获取坐标
@@ -59,5 +59,9 @@ public class BaiduMapUtils {
         } catch (MalformedURLException e) {} catch (IOException e) {}
         return json.toString();
     }
+    
+   /* public static void main(String[] args) {
+		System.out.println(new BaiduMapUtils().getCoordinate("上海市", "上海市", "浦东新区", "开伦鑫座"));
+	}*/
     
 }
